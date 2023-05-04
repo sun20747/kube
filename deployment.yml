@@ -41,9 +41,9 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: node-app
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-  name: nginx
+  name: node-app
 spec:
   rules:
     - http:
