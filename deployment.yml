@@ -27,12 +27,28 @@ kind: Service
 metadata:
   name: node-app
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: node-app
   ports:
     - protocol: TCP
       port: 80
       targetPort: 3000
-  externalIPs:
-    - "192.168.30.210"
+  # externalIPs:
+  #   - "192.168.30.210"
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: nginx
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /nginx
+            backend:
+              serviceName: node-app
+              servicePort: 80
